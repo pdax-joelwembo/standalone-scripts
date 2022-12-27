@@ -3,7 +3,7 @@ import json
 # Opening JSON file
 
 endpoint = 'https://dev.api.sandbox.pdax.ph/ips-payments/destination-participant'
-file = open('file.json')
+file = open('data/file.json')
 data = json.load(file)
 
 for bank in data:

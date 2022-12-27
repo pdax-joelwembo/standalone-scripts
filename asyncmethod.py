@@ -93,11 +93,11 @@ if __name__ == "__main__":
     assert sys.version_info >= (3, 7), "Script requires Python 3.7+."
     here = pathlib.Path(__file__).parent
 
-    with open(here.joinpath("urls.txt")) as infile:
+    with open(here.joinpath("data/urls.txt")) as infile:
         urls = set(map(str.strip, infile))
 
-    outpath = here.joinpath("foundurls.txt")
+    outpath = here.joinpath("data\foundurls.txt")
     with open(outpath, "w") as outfile:
-        outfile.write("source_url\tparsed_url\n")
+        outfile.write("data\source_url\tparsed_url\n")
 
     asyncio.run(bulk_crawl_and_write(file=outpath, urls=urls))

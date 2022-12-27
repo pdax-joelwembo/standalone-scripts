@@ -6,8 +6,8 @@ import asyncio
 
 jpype.startJVM() 
 from asposecells.api import Workbook
-workbook = Workbook("result2.xlsx")
-workbook.save("file.json")
+workbook = Workbook("data/result2.xlsx")
+workbook.save("data/file.json")
 jpype.shutdownJVM()
 
 
@@ -19,7 +19,7 @@ def participants_data_migration(endpoint: any, data: any, file:any) -> None:
 
 if __name__ == "__main__":
     endpoint = 'https://dev.api.sandbox.pdax.ph/ips-payments/destination-participant'
-    file = open('file.json')
+    file = open('data/file.json')
     data = json.load(file)
     participants_data_migration(endpoint , data, file)
   
