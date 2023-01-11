@@ -5,11 +5,18 @@ import numpy as np
 import pandas as pd
 
 # Oath and Authentification
+headers = {
+     "Authorization": "eyJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..KXYuSSiO0mxCyKXAsAKjow.WNV5lQVSWYvWeBFm52IhdoEsDolvinBGJQE5x0YoIY_kZGMiymDXvX9YAolgXceGVdnPHoGtsvY5-DEHVQzYkB3yFsdR3zJu50YVWPOJPgJYA3ugp0LDCam_OIZZTspQlI2HE_07L-zKfhU4mozKJwPd-wiNB10p9FS5x9QNsfQSMRnhyApsqXqnllx79SsjC_zb2CsskWIWzaqTwFX7YgVVxkELg2HQt579RFbnHQ2GUXYP4g2l8JJ3TWvqI2-BeUeMBi6njIxpmLYQ3NJamK00yDpLNb-rBNj4JTrJq9WWwiEX537HxgFAiu06s4g7dgqd6KM0RFC4O22G0M3RU5cR6iBhbUNh0s7B7H4g7DC7gEar2NO5oSdpQtvfyKxI.FFyqH5qXQTAyPcMmNMsSHQ",
+}
 # Services url
 excel_file = "./data/channels_bank_list_updated_2.xlsx"
 api = 'https://api-dev.trade.pdax.ph/limits/channel'
-channels_endpoint = open('data/channels.json') # We used this just speed up getting channel list
-channels = json.load(channels_endpoint)['data']
+
+response = requests.get(api, headers=headers)
+channels = response.json()['data'] 
+
+
+print(channels)
 
 # example adding parameters
 
@@ -40,8 +47,8 @@ for channel in channels:
         transferType = transferType,
         bankCode = bankCode )
 
-        r = requests.patch(api, params)
+        r = requests.patch(api, params, headers=headers)
         print(f"Status Code: {r.status_code}, Response: {r.json()}")
 
     else:
-        print('do nothing')    
+        print('id not correect or doesnt exist')    
