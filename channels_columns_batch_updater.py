@@ -11,7 +11,7 @@ import requests
 # workbook.save("data/channels_bank_list_updated_3.json")
 # jpype.shutdownJVM()
 # Script to generate json from the excel edited channels bank list
-# output : data/channels_bank_list_updated_2.json
+# output : data/channels_bank_list_updated_3.json
 
 api = 'https://api-dev.trade.pdax.ph/limits/channel'
 headers = {
@@ -24,30 +24,47 @@ response_channels = response.json()['data']
 
 # print(response_channels)
 
-# Processed channels list from the excel file
-channels_list = open('data/channels_bank_list_updated_3.json')
+# # Processed channels list from the excel file
+channels_list = open('data/channels_bank_list_updated_2.json')
 channels = json.load(channels_list)
 
 for channel in channels:
     channel_value = channel['value']
     channel_status = channel['status']
+    channel_bankCode = channel['bankCode']
+    channel_transferType = channel['transferType']
+    channel_isHidden = channel['isHidden']
 
     if channel_status == 'hidden' :
         print(f"Channel: {channel_value}, is : {channel_status}")
         # Params, data to be sent for patch endpoint : update
         # Reponse channel refer to the json load of api endpoint
+        
+        if len(channel_bankCode) > 0:
+            newBankCode = channel_bankCode
+        
+        if len(channel_transferType) > 0:
+            newTransferType = channel_transferType 
+        
+        if channel_isHidden == "hidden":
+            newIsHidden = True      
+            
+         
         for element in response_channels:
             element_id = element['id']
             element_value = element['value']
             element_transferType = element['transferType']
             element_bankCode = element['bankCode']
+            newIsHidden = True
             # print(element_value)
 
             # Comparaing the value name of the channels on excel and api
             if element_value == channel_value:
                 params = dict (
                     id = element_id,
-                    outlets = "nothing",
+                    bankCode = newBankCode,
+                    transferType = newTransferType,
+                    isHidden = newIsHidden
                 )
                 r = requests.patch(api, params, headers=headers)
                 print(f"Status Code: {r.status_code}, Response: {r.json()}")
