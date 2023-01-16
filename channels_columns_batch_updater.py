@@ -28,13 +28,15 @@ response_channels = response.json()['data']
 channels_list = open('data/channels_bank_list_updated_2.json')
 channels = json.load(channels_list)
 
+
+# iterating thru the channels from the excel file
 for channel in channels:
     channel_value = channel['value']
     channel_status = channel['status']
     channel_bankCode = channel['bankCode']
     channel_transferType = channel['transferType']
     channel_isHidden = channel['isHidden']
-
+    
     if channel_status == 'hidden' :
         print(f"Channel: {channel_value}, is : {channel_status}")
         # Params, data to be sent for patch endpoint : update
@@ -44,12 +46,10 @@ for channel in channels:
             newBankCode = channel_bankCode
         
         if len(channel_transferType) > 0:
-            newTransferType = channel_transferType 
-        
+            newTransferType = channel_transferType        
         if channel_isHidden == "hidden":
-            newIsHidden = True      
+            newIsHidden = True               
             
-         
         for element in response_channels:
             element_id = element['id']
             element_value = element['value']

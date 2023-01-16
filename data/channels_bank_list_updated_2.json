@@ -42,6 +42,7 @@
      "category": "online",
      "status": "enabled",
      "transferType": "High-Value",
+     "bankCode": "0103",
      "Remarks": "Conflict, multiple banks"
     },
     {
@@ -71,32 +72,8 @@
      "category": "otc",
      "instapay bank": "Cebuana Lhuillier",
      "status": "",
-     "bankCode": "7002"
-    },
-    {
-     "Column1": 5,
-     "id": 41,
-     "name": "Chinabank",
-     "value": "china_bank_online",
-     "paymentGateway": "dragonpay",
-     "imageLarge": "https:\/\/d21myxr1s1rgs4.cloudfront.net\/images\/chinabank\/chinabank@3x.png",
-     "paymentType": "cashIn",
-     "isHidden": false,
-     "category": "online",
-     "instapay bank": "Chinabank",
-     "status": ""
-    },
-    {
-       "Column1": 17,
-       "id": 61,
-       "name": "InstaPay",
-       "value": "instapay_upay_cashin",
-       "paymentGateway": "upay",
-       "imageLarge": "https:\/\/d21myxr1s1rgs4.cloudfront.net\/images\/instapay\/instapay@3x.png",
-       "paymentType": "cashIn",
-       "isHidden": false,
-       "category": "online",
-       "status": "hidden",
-       "Remarks": "no longer a channel first approach"
-      }
+     "bankCode": "7002",
+     "transferType": "Online"
+    }
+    
    ]
