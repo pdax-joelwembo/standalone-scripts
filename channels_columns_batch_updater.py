@@ -25,7 +25,7 @@ response_channels = response.json()['data']
 # print(response_channels)
 
 # Processed channels list from the excel file
-channels_list = open('data/channels_bank_list_updated_2.json')
+channels_list = open('data/channels_bank_list_updated_3.json')
 channels = json.load(channels_list)
 
 for channel in channels:
@@ -47,7 +47,7 @@ for channel in channels:
             if element_value == channel_value:
                 params = dict (
                     id = element_id,
-                    isHidden = True,
+                    outlets = "nothing",
                 )
                 r = requests.patch(api, params, headers=headers)
                 print(f"Status Code: {r.status_code}, Response: {r.json()}")
