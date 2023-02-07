@@ -40,7 +40,7 @@ for element in response_channels:
         channel_bankCode = channel['bankCode']
         channel_transferType = channel['transferType']
         channel_isHidden = channel['isHidden']
-        newIsHidden = channel['isHidden']
+        newIsHidden = channel_isHidden
    
         print(f"Channel: {channel_value}, is : {channel_status}")
             # Params, data to be sent for patch endpoint : update
@@ -54,9 +54,9 @@ for element in response_channels:
             newIsHidden = True  
             
         request_body = {
-            "id": channel['id'],
-            "bankCode": newBankCode,
-            "transferType": newTransferType,
+            "id": element_id,
+            "bankCode": element_bankCode,
+            "transferType": element_transferType,
             "isHidden": newIsHidden
         }
         request_body = json.dumps(request_body)
