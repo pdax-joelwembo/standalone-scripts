@@ -1,0 +1,100 @@
+### test POST /list
+POST {{baseUrl}}/list
+Content-Type: application/json
+
+{
+  "name": "test"
+}
+
+> {%
+client.test("status=201", function () {
+  client.assert(response.status === 201, "status code error")
+  client.global.set("listId", response.body.data.listId)
+})
+%}
+
+### test GET /list
+GET {{baseUrl}}/list?listId={{listId}}
+
+> {%
+client.test("status=200", function () {
+  client.assert(response.status === 200, "status code error")
+})
+%}
+
+### test PUT /list
+PUT {{baseUrl}}/list
+Content-Type: application/json
+
+{"name":"test-update","listId":"{{listId}}"}
+
+> {%
+client.test("status=200", function() {
+  client.assert(response.status === 200, "status code error")
+})
+%}
+
+### test POST /task
+POST {{baseUrl}}/task
+
+{
+  "listId":"{{listId}}",
+  "description":"test-description",
+  "completed":false
+}
+
+> {%
+client.test("status=201", function () {
+  client.assert(response.status === 201, "status code error")
+  client.global.set("taskId", response.body.data.taskId)
+})
+ %}
+
+### test GET /task
+GET {{baseUrl}}/task?listId={{listId}}&taskId={{taskId}}
+
+> {%
+client.test("status=200", function () {
+  client.assert(response.status === 200, "status code error")
+})
+ %}
+
+### test PUT /task
+PUT {{baseUrl}}/task
+
+{
+  "listId":"{{listId}}",
+  "taskId":"{{taskId}}",
+  "description": "updated task",
+  "completed": true
+}
+
+> {%
+client.test("status=200", function () {
+  client.assert(response.status === 200, "status code error")
+})
+ %}
+
+### test DELETE /task
+DELETE {{baseUrl}}/task?listId={{listId}}&taskId={{taskId}}
+
+{
+  "listId":"{{listId}}",
+  "taskId":"{{taskId}}"
+}
+
+> {%
+client.test("status=204", function () {
+  client.assert(response.status === 204, "status code error")
+})
+ %}
+
+### test DELETE /list
+DELETE {{baseUrl}}/list?listId={{listId}}
+
+> {%
+client.test("status=204", function () {
+  client.assert(response.status === 204, "status code error")
+})
+%}
+
